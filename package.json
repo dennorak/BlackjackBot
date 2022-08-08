@@ -1,0 +1,19 @@
+{
+  "name": "blackjackbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "register": "node src/register.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "canvas": "^2.9.3",
+    "discord.js": "^14.1.2",
+    "dotenv": "^16.0.1",
+    "uuid": "^8.3.2"
+  }
+}

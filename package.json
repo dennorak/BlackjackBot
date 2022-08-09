@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "node scripts/test.js",
+    "dev": "nodemon src/index.js",
     "start": "node src/index.js",
     "register": "node src/register.js"
   },
@@ -14,6 +16,9 @@
     "canvas": "^2.9.3",
     "discord.js": "^14.1.2",
     "dotenv": "^16.0.1",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.19",
+    "prompt-sync": "^4.2.0",
     "uuid": "^8.3.2"
   }
 }

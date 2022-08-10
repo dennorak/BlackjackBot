@@ -1,9 +1,13 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  EmbedBuilder,
+  PermissionFlagsBits,
+} = require("discord.js");
 const { Database } = require("../services/Database.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("send")
+    .setName("credit")
     .setDescription("send XWC to another user")
     .addNumberOption((option) =>
       option
@@ -13,26 +17,14 @@ module.exports = {
     )
     .addUserOption((option) =>
       option.setName("recipient").setRequired(true).setDescription("recipient")
-    ),
+    )
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
   async execute(interaction) {
     const conn = Database.connect();
 
-    /*const exampleEmbed = new EmbedBuilder()
-      .setAuthor({
-        name: "Blackjack",
-        iconURL: "http://beaconwire.com/card_back.png",
-      })
-      .setThumbnail(await hand.renderDealer())
-      .setImage(await hand.renderHand())
-      .setFooter({
-        text: `${hand.uuid}`,
-        iconURL: "http://beaconwire.com/card_back.png",
-      });*/
-    const res = await conn.send(
-      // parseInt(interaction.options.getString("recipient")),
+    const res = await conn.credit(
       interaction.options.getUser("recipient").id,
-      interaction.user.id,
       interaction.options.getNumber("amount")
     );
     interaction.reply(res);

@@ -1,4 +1,9 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  ActionRowBuilder,
+  ButtonStyle,
+  ButtonBuilder,
+} = require("discord.js");
 const { Blackjack } = require("../services/Blackjack.js");
 const { Database } = require("../services/Database.js");
 
@@ -25,8 +30,24 @@ module.exports = {
           await interaction.reply("you already have a game going!");
         } else {
           await conn.send(0, interaction.user.id, bet);
+
+          const row = new ActionRowBuilder()
+            .addComponents(
+              new ButtonBuilder()
+                .setCustomId("hit")
+                .setLabel("Hit")
+                .setStyle(ButtonStyle.Success)
+            )
+            .addComponents(
+              new ButtonBuilder()
+                .setCustomId("stand")
+                .setLabel("Stand")
+                .setStyle(ButtonStyle.Primary)
+            );
+
           await interaction.reply({
             embeds: [hand.reset(interaction.user.id, bet)],
+            components: [row],
           });
         }
       }

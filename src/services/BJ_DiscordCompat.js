@@ -43,11 +43,24 @@ module.exports = {
       .addFields(
         { name: "Game Status", value: status },
         { name: "\u200B", value: "\u200B" },
-        { name: "Your Hand", value: ph.toString(), inline: true },
-        { name: "Dealer Hand", value: dh.toString(), inline: true }
+        { name: "Your Hand", value: String(ph), inline: true },
+        { name: "Dealer Hand", value: String(dh), inline: true }
       )
       .setFooter({
         text: uid,
       });
+  },
+
+  getLeaderboardEmbed: function (lbo) {
+    return new EmbedBuilder().setAuthor({
+      name: "Blackjack Leaderboard",
+      iconURL:
+        "https://raw.githubusercontent.com/ixdko/BlackjackBot/master/assets/card_back.png",
+    }).setDescription(`
+<@${lbo[0].uid}>: ${lbo[0].bal} XWC
+<@${lbo[1].uid}>: ${lbo[1].bal} XWC
+<@${lbo[2].uid}>: ${lbo[2].bal} XWC
+<@${lbo[3].uid}>: ${lbo[3].bal} XWC
+<@${lbo[4].uid}>: ${lbo[4].bal} XWC`);
   },
 };

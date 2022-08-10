@@ -4,9 +4,13 @@ const {
   Collection,
   REST,
   Routes,
+  ActivityType,
 } = require("discord.js");
 const fs = require("node:fs");
 const path = require("node:path");
+const deal = require("./commands/deal");
+const hit = require("./commands/hit");
+const stand = require("./commands/stand");
 require("dotenv").config();
 
 // Create the client
@@ -15,12 +19,37 @@ const client = new Client({
     IntentsBitField.Flags.GuildMessages,
     IntentsBitField.Flags.Guilds,
     IntentsBitField.Flags.GuildMessageReactions,
+    IntentsBitField.Flags.DirectMessages,
   ],
+  presence: {
+    activities: [
+      {
+        type: ActivityType.Competing,
+        name: "Blackjack",
+      },
+    ],
+  },
 });
 
 // log client connection
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
+});
+
+// register button handlers
+client.on("interactionCreate", (interaction) => {
+  if (!interaction.isButton()) return;
+  message = interaction.message;
+  switch (interaction.customId) {
+    case "hit":
+      hit.execute(interaction, message);
+      break;
+    case "stand":
+      stand.execute(interaction, message);
+      break;
+    default:
+      interaction.reply("an error occurred.");
+  }
 });
 
 // get commands

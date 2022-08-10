@@ -9,6 +9,9 @@ module.exports = {
   async execute(interaction) {
     const conn = Database.connect();
 
-    await interaction.reply(await conn.register(interaction.user.id));
+    await interaction.reply({
+      content: await conn.register(interaction.user.id),
+      ephemeral: true,
+    });
   },
 };

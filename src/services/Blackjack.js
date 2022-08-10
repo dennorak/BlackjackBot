@@ -119,11 +119,11 @@ class Blackjack {
 
   stand() {
     while (this.state === "playing") {
-      if (this.score.d > this.score.p) {
-        this.state = "House Wins!";
-        console.log(this.state, this.score);
-      } else if (this.score.d < 17) {
+      if (this.score.d < 17) {
         this.getCard("d");
+        console.log(this.state, this.score);
+      } else if (this.score.d > this.score.p) {
+        this.state = "House Wins!";
         console.log(this.state, this.score);
       } else if (this.score.d === this.score.p) {
         this.state = "draw";
